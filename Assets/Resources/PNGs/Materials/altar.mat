@@ -74,7 +74,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Shininess: 1
+    - _Shininess: 0.01
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -83,5 +83,5 @@ Material:
     m_Colors:
     - _Color: {r: 0.1981132, g: 0.15686187, b: 0.10186009, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ReflectColor: {r: 0.74359286, g: 0.7735849, b: 0.07662869, a: 0.5}
+    - _ReflectColor: {r: 0, g: 0, b: 0, a: 0.5}
     - _SpecColor: {r: 0, g: 0, b: 0, a: 1}

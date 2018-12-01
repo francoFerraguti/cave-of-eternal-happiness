@@ -20,6 +20,10 @@ public class GuardianScript : MonoBehaviour
 
     float horizontalRotationSpeed = 90f;
 
+    bool exiting = false;
+    float exitMovementSpeed = 12.0f;
+    float exitScaleSpeed = 0.001f;
+
 
     void Update()
     {
@@ -29,6 +33,24 @@ public class GuardianScript : MonoBehaviour
         updatePosition();
         updateHorizontalRotation();
         updateSine();
+
+        exit();
+    }
+
+    void exit()
+    {
+        if (!exiting)
+        {
+            return;
+        }
+
+        transform.Translate(Vector3.forward * Time.deltaTime * exitMovementSpeed, Space.World);
+
+        transform.localScale -= new Vector3(exitScaleSpeed, exitScaleSpeed, exitScaleSpeed);
+        if (transform.localScale.x <= 0.02f)
+        {
+            this.gameObject.SetActive(false);
+        }
     }
 
     void updateSine()
@@ -66,5 +88,10 @@ public class GuardianScript : MonoBehaviour
     void updateHorizontalRotation()
     {
         transform.RotateAround(transform.position, transform.up, Time.deltaTime * horizontalRotationSpeed);
+    }
+
+    public void SetExit()
+    {
+        exiting = true;
     }
 }

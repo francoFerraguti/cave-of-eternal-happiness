@@ -6,6 +6,7 @@ public class BonfireScript : MonoBehaviour
 {
 
     ParticleSystem particleSystem;
+    Renderer altarRenderer;
 
     float timer = 0;
     float timeToStart = 1.2f;
@@ -18,6 +19,7 @@ public class BonfireScript : MonoBehaviour
     void Awake()
     {
         particleSystem = this.GetComponent<ParticleSystem>();
+        altarRenderer = GameObject.Find("altar").GetComponent<Renderer>();
     }
 
     void Update()
@@ -44,6 +46,16 @@ public class BonfireScript : MonoBehaviour
         {
             var lights = particleSystem.lights;
             lights.intensityMultiplier += 0.002f;
+
+            var currentColor = altarRenderer.material.GetColor("_ReflectColor");
+            if (currentColor.g < 0.4f)
+            {
+                altarRenderer.material.SetColor("_ReflectColor", currentColor + new Color(0.01f, 0.01f, 0, 0));
+            }
+            else if (currentColor.r < 1.0f)
+            {
+                altarRenderer.material.SetColor("_ReflectColor", currentColor + new Color(0.01f, 0, 0, 0));
+            }
         }
     }
 }

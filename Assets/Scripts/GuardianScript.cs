@@ -21,8 +21,8 @@ public class GuardianScript : MonoBehaviour
     float horizontalRotationSpeed = 90f;
 
     bool exiting = false;
-    float exitMovementSpeed = 12.0f;
-    float exitScaleSpeed = 0.001f;
+    float exitMovementSpeed = 24.0f;
+    float exitScaleSpeed = 0.0015f;
 
 
     void Update()

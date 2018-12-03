@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CameraScript : MonoBehaviour
 {
+
+    public GameObject kneeling;
+
     bool introMovingForward = false;
     float introWalkSpeed = 8.0f;
 
@@ -16,11 +19,55 @@ public class CameraScript : MonoBehaviour
     float introKneelRotateSpeed = 20.0f;
     bool introKneelChangedDirection = false;
 
+    bool introGettingUp = false;
+    float introGetUpSpeed = 24.0f;
+
+    bool introGoingBack = false;
+    float introGoingBackSpeed = 24.0f;
+    float introGoingBackRotationSpeed = 1.3f;
+
 
     void Update()
     {
         introMoveForward();
         introKneel();
+        introGetUp();
+        introGoBack();
+    }
+
+    void introGoBack()
+    {
+        if (!introGoingBack)
+        {
+            return;
+        }
+
+        transform.Translate(Vector3.forward * Time.deltaTime * introGoingBackSpeed, Space.World);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(10, 180, 0), Time.deltaTime * introGoingBackRotationSpeed);
+
+        if (transform.position.z >= 120.0f)
+        {
+            introGoingBack = false;
+            GameObject.Find("Main Camera").GetComponent<SoundManagerScript>().playWhat();
+            GameObject.Find("Main Camera").GetComponent<CameraShakeScript>().SetShaking(0.8f);
+        }
+    }
+
+    void introGetUp()
+    {
+        if (!introGettingUp)
+        {
+            return;
+        }
+
+        transform.Translate(Vector3.up * Time.deltaTime * introGetUpSpeed, Space.World);
+
+        if (transform.position.y >= 62.0f)
+        {
+            kneeling.SetActive(true);
+            introGettingUp = false;
+            introGoingBack = true;
+        }
     }
 
     void introKneel()
@@ -80,5 +127,10 @@ public class CameraScript : MonoBehaviour
     {
         introKneeling = true;
         GameObject.Find("altar").GetComponent<AltarScript>().SetBlackening();
+    }
+
+    public void SetIntroGettingUp()
+    {
+        introGettingUp = true;
     }
 }
